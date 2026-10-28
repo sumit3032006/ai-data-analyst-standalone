@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Data Analyst</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <h1>AI Data Analyst</h1>
+    <p>Upload a CSV or Excel file, ask a question, and get cleaned results, charts, and downloadable tables.</p>
+  </header>
+
+  <form id="analyze-form" class="card" novalidate>
+    <label class="drop" for="file-input">
+      <span id="file-label">Choose a file: CSV, XLSX, XLS, or JSON, up to 20 MB</span>
+      <input id="file-input" type="file" accept=".csv,.xlsx,.xls,.json" hidden>
+    </label>
+
+    <label>Sheet name (Excel only, optional)
+      <input id="sheet" type="text" maxlength="100" autocomplete="off">
+    </label>
+
+    <label>Your question
+      <textarea id="query" rows="4" maxlength="1000"
+        placeholder="Ask questions about your data, such as comparing regional sales, calculating percentages, identifying trends, finding top-performing products, or generating charts."></textarea>
+    </label>
+
+    <div class="chips" id="examples"></div>
+
+    <div class="row">
+      <button type="submit" id="analyze-btn">Analyze Data</button>
+      <button type="button" id="cancel-btn" class="ghost" hidden>Cancel</button>
+      <button type="button" id="clear-btn" class="ghost">Clear</button>
+    </div>
+    <p id="progress" class="muted" role="status" hidden></p>
+  </form>
+
+  <p id="alert" class="alert" role="alert" hidden></p>
+
+  <section id="results" hidden>
+    <section class="card">
+      <h2>Summary</h2>
+      <div id="kpis" class="kpis"></div>
+      <ul id="insights"></ul>
+    </section>
+
+    <section class="card" id="ai-card" hidden>
+      <h2>AI insights</h2>
+      <p id="ai-text"></p>
+    </section>
+
+    <section class="card">
+      <h2>Data quality</h2>
+      <p id="quality"></p>
+    </section>
+
+    <section class="card">
+      <h2>Charts</h2>
+      <canvas id="chart-main" hidden></canvas>
+      <canvas id="chart-second" hidden></canvas>
+    </section>
+
+    <section class="card">
+      <h2>Tables</h2>
+      <div id="tables"></div>
+    </section>
+
+    <section class="card">
+      <h2>Assumptions and limitations</h2>
+      <ul id="warnings"></ul>
+    </section>
+
+    <section class="card">
+      <h2>Downloads</h2>
+      <div class="row">
+        <button type="button" id="dl-csv" class="ghost">Download tables (CSV)</button>
+        <button type="button" id="dl-json" class="ghost">Download full report (JSON)</button>
+      </div>
+    </section>
+
+    <form id="mail-form" class="card" novalidate>
+      <h2>Email this report</h2>
+      <p class="muted">Nothing is sent until you click Send Report. The report is sent from the project's Gmail account.</p>
+      <label>Recipient email
+        <input id="mail-to" type="email" required autocomplete="off">
+      </label>
+      <label>Subject
+        <input id="mail-subject" type="text" maxlength="150">
+      </label>
+      <label>Optional message
+        <textarea id="mail-message" rows="3" maxlength="1000"></textarea>
+      </label>
+      <div class="row">
+        <button type="submit" id="mail-btn">Send Report</button>
+      </div>
+      <p id="mail-status" role="status" hidden></p>
+    </form>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+<script src="app.js" defer></script>
+</body>
+</html>

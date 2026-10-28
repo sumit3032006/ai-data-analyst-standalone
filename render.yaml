@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: ai-data-analyst-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: APP_SECRET
+        sync: false
+      - key: GMAIL_ADDRESS
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false
+      - key: MAX_UPLOAD_MB
+        value: "20"
+      - key: MAX_ROWS
+        value: "200000"
+      - key: DAILY_EMAIL_LIMIT
+        value: "40"
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: AI_MODEL
+        sync: false
